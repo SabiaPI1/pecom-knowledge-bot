@@ -25,18 +25,6 @@
 
 Проект построен на базе архитектуры **Retrieval-Augmented Generation (RAG)** с использованием гибридного поиска и этапа реранжирования (Reranking) для максимизации релевантности ответов.
 
-```mermaid
-graph TD;
-    A[Сырые HTML и TXT] -->|Парсинг и очистка| B(JSON база);
-    B -->|Chunking 1000/200| C(LangChain Text Splitter);
-    C -->|Embeddings| D[(Elasticsearch Vector Store)];
-    E[Пользователь Telegram] -->|Вопрос| F{Retriever Query Engine};
-    F -->|Векторный поиск K=10| D;
-    D -->|Топ-10 чанков| G[Cross-Encoder Reranker];
-    G -->|Топ-3 релевантных| H[LLM Saiga LoRA];
-    H -->|Генерация ответа| E;
-```
-
 ## Обоснование технических решений
 
 1. **Векторная БД (Elasticsearch):** выбрана для обеспечения production-ready векторного (Dense Retrieval) и гибридного поиска. Позволяет динамически индексировать новые документы "на лету" без даунтайма системы.
