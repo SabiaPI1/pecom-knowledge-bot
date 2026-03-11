@@ -1,0 +1,13 @@
+pyTelegramBotAPI
+beautifulsoup4>=4.12.3
+python-dotenv
+elasticsearch==8.8.0
+llama-index
+llama-index-embeddings-huggingface
+llama-index-llms-huggingface
+langchain
+langchain-text-splitters
+torch
+transformers
+peft
+sentence-transformers
