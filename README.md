@@ -44,15 +44,15 @@ graph TD;
 3. **Reranker (BAAI/bge-reranker-base):** классический косинусный поиск по эмбеддингам часто выдает "шум". Внедрение кросс-энкодера (Cross-Encoder) позволяет переранжировать топ-10 найденных документов и отдавать в LLM только 3 самых точных, что радикально снижает вероятность галлюцинаций модели.
 4. **Локальная LLM (Saiga/Mistral):** использована локально развернутая модель семейства Сайга, адаптированная под русский язык (через PEFT/LoRA).
 
-## Стек технологий
+## Стек технологий   
 
-**Оркестрация RAG:** LlamaIndex, LangChain
-**Embeddings:** sentence-transformers/distiluse-base-multilingual-cased-v2 (возможна замена на легковесные аналоги типа rubert-tiny2)
-**Reranker:** BAAI/bge-reranker-base
-**Генеративная LLM:** IlyaGusev/saiga_mistral_7b_lora (transformers, peft)
-**Хранилище:** Elasticsearch 8.8+
-**ETL и Парсинг:** BeautifulSoup4
-**Интерфейс:** telebot.async_telebot (Асинхронный обработчик для параллельной работы с пользователями)
+* **Оркестрация RAG:** LlamaIndex, LangChain   
+* **Embeddings:** sentence-transformers/distiluse-base-multilingual-cased-v2 (возможна замена на легковесные аналоги типа rubert-tiny2)   
+* **Reranker:** BAAI/bge-reranker-base   
+* **Генеративная LLM:** IlyaGusev/saiga_mistral_7b_lora (transformers, peft)   
+* **Хранилище:** Elasticsearch 8.8+   
+* **ETL и Парсинг:** BeautifulSoup4   
+* **Интерфейс:** telebot.async_telebot (Асинхронный обработчик для параллельной работы с пользователями)
 
 ## Структура проекта
 
@@ -67,9 +67,9 @@ pecom-knowledge-bot/
 │   ├── indexer.py           # Чанкинг и батч-загрузка векторов в Elasticsearch (tqdm + CUDA/CPU)
 │   ├── rag_pipeline.py      # Ядро NLP: инициализация LLM, промпты, ретривер и реранкер
 │   └── bot.py               # Асинхронный Telegram-бот с пулом потоков
-├── .env.example             # Шаблон файла конфигурации переменных окружения
-├── requirements.txt         # Зависимости Python
-└── README.md                # Документация проекта
+├── .env.example             
+├── requirements.txt         
+└── README.md                
 ```
 
 ## Установка и запуск 
@@ -102,7 +102,7 @@ ELASTIC_USER=elastic
 ELASTIC_PASSWORD=ваш_пароль_от_elasticsearch
 ```
 
-3. **Подготовка данных и базы** 
+3. **Подготовка данных и базы**   
 Убедитесь, что локально или на сервере запущен Elasticsearch 8+.
 Поместите сырые данные (папки с HTML и TXT-файлами) в директорию data/raw/.
 
@@ -111,14 +111,13 @@ ELASTIC_PASSWORD=ваш_пароль_от_elasticsearch
 ```bash
 python src/parser.py
 ```
-
 **Шаг 3.2. Запустите индексатор** для разбиения текста на чанки, векторизации и загрузки в Elasticsearch:
 
 ```bash
 python src/indexer.py
 ```
 
-4. **Запуск Telegram-бота**   
+4. **Запуск Telegram-бота**
 Когда база знаний проиндексирована, можно запускать самого ассистента:
 
 ```bash
